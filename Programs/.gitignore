@@ -1,0 +1,11 @@
+# /
+*.suo
+*.o
+/.git
+
+*/obj
+*/bin
+*/*.suo
+*/x64
+
+/debug.log

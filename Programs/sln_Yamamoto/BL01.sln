@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31019.35
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL01_ReaderWriter", "..\BL01_ReaderWriter\BL01_ReaderWriter.csproj", "{7B13F8AD-A7A8-45D7-AE74-FCA2CAB97BC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL01_BroadcastReceiver", "..\BL01_BroadcastReceiver\BL01_BroadcastReceiver.csproj", "{DEE3254E-2AF3-4DA1-A684-33F28D65F5F9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7B13F8AD-A7A8-45D7-AE74-FCA2CAB97BC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B13F8AD-A7A8-45D7-AE74-FCA2CAB97BC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B13F8AD-A7A8-45D7-AE74-FCA2CAB97BC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B13F8AD-A7A8-45D7-AE74-FCA2CAB97BC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEE3254E-2AF3-4DA1-A684-33F28D65F5F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEE3254E-2AF3-4DA1-A684-33F28D65F5F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEE3254E-2AF3-4DA1-A684-33F28D65F5F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEE3254E-2AF3-4DA1-A684-33F28D65F5F9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A6010AD3-26AF-45C2-8319-817730C85DC6}
+	EndGlobalSection
+EndGlobal

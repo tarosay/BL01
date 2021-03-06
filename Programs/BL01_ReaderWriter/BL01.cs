@@ -229,11 +229,13 @@ namespace BL01_ReaderWriter
                                 if (characteristics.Characteristics.Count > 0)
                                 {
                                     var vv = await characteristics.Characteristics[0].ReadValueAsync(Windows.Devices.Bluetooth.BluetoothCacheMode.Uncached);
-
-                                    this.ReadData = new byte[vv.Value.Length];
-                                    using (DataReader reader = DataReader.FromBuffer(vv.Value))
+                                    if (vv.Value != null)
                                     {
-                                        reader.ReadBytes(this.ReadData);
+                                        this.ReadData = new byte[vv.Value.Length];
+                                        using (DataReader reader = DataReader.FromBuffer(vv.Value))
+                                        {
+                                            reader.ReadBytes(this.ReadData);
+                                        }
                                     }
                                 }
                             }

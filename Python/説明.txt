@@ -1,0 +1,55 @@
+ラズパイにBLE関連の導入
+$ sudo apt-get install libglib2.0-dev
+
+$ sudo /usr/bin/python3 -m pip install --upgrade pip
+$ sudo pip3 install bluepy
+
+BL01
+Bluetooth low enargy
+
+
+
+https://ambidata.io/samples/temphumid/ble-gw-omron/
+https://github.com/AmbientDataInc/EnvSensorBleGw
+
+
+https://qiita.com/c60evaporator/items/ed2ffde4c87001111c12
+
+https://www.shujima.work/entry/2018/10/09/203532
+→BL01をIMモードに書き換える方法
+
+■
+$ sudo hcitool lescan
+LE Scan ...
+03:ED:B9:7D:7C:54 (unknown)
+00:BB:C1:48:1D:2F (unknown)
+00:BB:C1:48:1D:2F TS6130 seri
+63:9A:83:34:D5:32 (unknown)
+C1:2A:98:3A:6C:76 EP
+70:89:AE:BB:7A:19 (unknown)
+C1:2A:98:3A:6C:76 (unknown)
+44:59:17:AA:69:4D (unknown)
+44:59:17:AA:69:4D (unknown)
+70:89:AE:BB:7A:19 (unknown)
+
+■接続テスト
+$ gatttool -b C1:2A:98:3A:6C:76 -t random -I
+[C1:2A:98:3A:6C:76][LE]> connect
+Attempting to connect to C1:2A:98:3A:6C:76
+Connection successful
+[C1:2A:98:3A:6C:76][LE]> primarry
+Error: primarry: command not found
+[C1:2A:98:3A:6C:76][LE]> primary
+attr handle: 0x0001, end grp handle: 0x0007 uuid: 00001800-0000-1000-8000-00805f9b34fb
+attr handle: 0x0008, end grp handle: 0x000b uuid: 00001801-0000-1000-8000-00805f9b34fb
+attr handle: 0x000c, end grp handle: 0x0016 uuid: 0000180a-0000-1000-8000-00805f9b34fb
+attr handle: 0x0017, end grp handle: 0x0025 uuid: 0c4c3000-7700-46f4-aa96-d5e974e32a54
+attr handle: 0x0026, end grp handle: 0x003a uuid: 0c4c3010-7700-46f4-aa96-d5e974e32a54
+attr handle: 0x003b, end grp handle: 0x0043 uuid: 0c4c3030-7700-46f4-aa96-d5e974e32a54
+attr handle: 0x0044, end grp handle: 0x0048 uuid: 0c4c3040-7700-46f4-aa96-d5e974e32a54
+attr handle: 0x0049, end grp handle: 0xffff uuid: 0c4c3050-7700-46f4-aa96-d5e974e32a54
+[C1:2A:98:3A:6C:76][LE]>
+[C1:2A:98:3A:6C:76][LE]> quit
+
+(gatttool:1914): GLib-WARNING **: 15:47:34.821: Invalid file descriptor.
+$

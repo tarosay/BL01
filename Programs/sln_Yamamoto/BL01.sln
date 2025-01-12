@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31019.35
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35521.163
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL01_ReaderWriter", "..\BL01_ReaderWriter\BL01_ReaderWriter.csproj", "{7B13F8AD-A7A8-45D7-AE74-FCA2CAB97BC6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL01_BroadcastReceiver", "..\BL01_BroadcastReceiver\BL01_BroadcastReceiver.csproj", "{DEE3254E-2AF3-4DA1-A684-33F28D65F5F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL01Lib", "..\BL01Lib\BL01Lib.csproj", "{ACC447BE-1AA6-4F20-8E24-45C5B60DF2EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseDLLExample", "..\UseDLLExample\UseDLLExample.csproj", "{5746424C-FAFF-438F-8DD8-8114B7E97AF8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{DEE3254E-2AF3-4DA1-A684-33F28D65F5F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEE3254E-2AF3-4DA1-A684-33F28D65F5F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEE3254E-2AF3-4DA1-A684-33F28D65F5F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACC447BE-1AA6-4F20-8E24-45C5B60DF2EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACC447BE-1AA6-4F20-8E24-45C5B60DF2EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACC447BE-1AA6-4F20-8E24-45C5B60DF2EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACC447BE-1AA6-4F20-8E24-45C5B60DF2EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5746424C-FAFF-438F-8DD8-8114B7E97AF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5746424C-FAFF-438F-8DD8-8114B7E97AF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5746424C-FAFF-438F-8DD8-8114B7E97AF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5746424C-FAFF-438F-8DD8-8114B7E97AF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

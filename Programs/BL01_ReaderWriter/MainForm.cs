@@ -5,6 +5,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading;
@@ -145,12 +146,21 @@ namespace BL01_ReaderWriter
                     double temperature = ((double)BL01_Serials[i].ReadData[1] + (double)BL01_Serials[i].ReadData[2] * 256.0) / 100.0;
                     double humidity = ((double)BL01_Serials[i].ReadData[3] + (double)BL01_Serials[i].ReadData[4] * 256.0) / 100.0;
                     BL01_Serials[i].Illuminance = (int)(((double)BL01_Serials[i].ReadData[5] + (double)BL01_Serials[i].ReadData[6] * 256.0) + 0.5);
+                    double uv = ((double)BL01_Serials[i].ReadData[7] + (double)BL01_Serials[i].ReadData[8] * 256.0) / 100.0;
                     double pressure = ((double)BL01_Serials[i].ReadData[9] + (double)BL01_Serials[i].ReadData[10] * 256.0) / 10.0;
+                    double soundnoise = ((double)BL01_Serials[i].ReadData[11] + (double)BL01_Serials[i].ReadData[12] * 256.0) / 100.0;
+                    double discomfort = ((double)BL01_Serials[i].ReadData[13] + (double)BL01_Serials[i].ReadData[14] * 256.0) / 100.0;
+                    double heatstrokerisk = ((double)BL01_Serials[i].ReadData[15] + (double)BL01_Serials[i].ReadData[16] * 256.0) / 100.0;
+                    double batteryvoltage = ((double)BL01_Serials[i].ReadData[17] + (double)BL01_Serials[i].ReadData[18] * 256.0) / 1000.0;
 
-                    ThrowMessage.mesg("温度= " + temperature.ToString() + "\r\n");
-                    ThrowMessage.mesg("湿度= " + humidity.ToString() + "\r\n");
-                    ThrowMessage.mesg("照度= " + BL01_Serials[i].Illuminance.ToString() + "\r\n");
-                    ThrowMessage.mesg("気圧= " + pressure.ToString() + "\r\n");
+                    ThrowMessage.mesg($"温度= {temperature}\r\n");
+                    ThrowMessage.mesg($"湿度= { humidity}\r\n");
+                    ThrowMessage.mesg($"照度= {BL01_Serials[i].Illuminance}\r\n");
+                    ThrowMessage.mesg($"UV= {uv}\r\n");
+                    ThrowMessage.mesg($"騒音= {soundnoise}\r\n");
+                    ThrowMessage.mesg($"不快指数= {discomfort}\r\n"); ;
+                    ThrowMessage.mesg($"熱中症危険度= {heatstrokerisk}\r\n");
+                    ThrowMessage.mesg($"電池電圧= {batteryvoltage}\r\n");
                     ThrowMessage.mesg("-----------------------------------\r\n");
                 }
                 //        }

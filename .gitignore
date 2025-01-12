@@ -1,11 +1,129 @@
-# /
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]ppx/
+[Aa]ssemblyAttributes.cs
+bin/
+obj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio
+.vs/
+.vscode/
+*.user
 *.suo
-*.o
-/.git
+*.userosscache
+*.sln.docstates
 
-*/obj
-*/bin
-*/*.suo
-.DS_Store
+# IIS Express
+/IISExpress/
+*.vspscc
 
-Projects/debug.log
+# User-specific files
+*.rsuser
+*.usr
+*.sln.ide
+*.opt
+*.ncrunch*
+*.resharper
+*_ReSharper.*
+
+# Mono Auto Generated Files
+mono_crash.*
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Project files
+*.pidb
+*.pdb
+*.log
+*.lib
+*.obj
+*.out
+*.exe
+*.dll
+*.cache
+*.manifest
+*.tmp
+*.ide
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# C++ files
+*.idb
+*.tlog
+*.lastbuildstate
+*.VC.db
+*.VC.VC.opendb
+*.ipdb
+*.iobj
+
+# Npm packages
+node_modules/
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+# The packages folder can be ignored because of Package Restore
+**/packages/*
+# except build/, which is used as an MSBuild target.
+!**/packages/build/
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/packages/repositories.config
+
+# Microsoft Azure Build Output
+csx/
+*.build.csdef
+
+# Others
+.idea/
+.vscode/
+.project
+.classpath
+.settings/
+.temporary/
+.ionide/
+*.orig
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# Rider
+.idea/
+
+# Code coverage results
+*.coverage
+*.coveragexml
+
+# MSTest test Results
+TestResults/
+
+# NUnit
+*.VisualState.xml
+TestResult.xml
+
+# Build Logs
+*.tlog
+*.log
+
+# OS generated files
+*.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+*.swp
+*.lock

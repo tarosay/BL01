@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL01Lib", "..\BL01Lib\BL01L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseDLLExample", "..\UseDLLExample\UseDLLExample.csproj", "{5746424C-FAFF-438F-8DD8-8114B7E97AF8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL01DataService", "..\BL01DataService\BL01DataService.csproj", "{C6D147EA-654D-49A3-B967-C0E56A250D01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{5746424C-FAFF-438F-8DD8-8114B7E97AF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5746424C-FAFF-438F-8DD8-8114B7E97AF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5746424C-FAFF-438F-8DD8-8114B7E97AF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6D147EA-654D-49A3-B967-C0E56A250D01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6D147EA-654D-49A3-B967-C0E56A250D01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6D147EA-654D-49A3-B967-C0E56A250D01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6D147EA-654D-49A3-B967-C0E56A250D01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -73,7 +73,7 @@ namespace BL01DataService
             {
                 _listener.Start();
                 _listenerTask = Task.Run(() => HandleRequests());
-                AppendLog($"HTTP server started on https://localhost:{_port}/");
+                AppendLog($"HTTP server started on http://localhost:{_port}/");
 
                 var localAddresses = Dns.GetHostAddresses(Dns.GetHostName());
                 foreach (var address in localAddresses)

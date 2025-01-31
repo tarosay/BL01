@@ -146,6 +146,7 @@ namespace BL01DataService
         {
             // ローカルホスト（localhost）を追加
             _listener.Prefixes.Add($"http://+:{_port}/");
+            //_listener.Prefixes.Add($"http://0.0.0.0:{_port}/");
             //_listener.Prefixes.Add($"http://localhost:{_port}/");
             //_listener.Prefixes.Add($"http://127.0.0.1:{_port}/");
             //// 自分のIPアドレスを取得し、すべてのアドレスでリスナーを設定

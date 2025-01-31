@@ -1,0 +1,34 @@
+PythonでBL01データを取得する
+■bleakをインストールします。
+$ pip3 install bleak だと、ダメなので、環境に合わせてインストール
+以下でインストールした
+$ pip3 install --break-system-packages bleak
+
+■bleakがBL01に接続できるように、bluetoothctlの方の接続をきります
+$ bluetoothctl
+[EnvSensor-BL01]# disconnect D1:63:2E:18:8F:C6
+Attempting to disconnect from D1:63:2E:18:8F:C6
+[CHG] Device D1:63:2E:18:8F:C6 ServicesResolved: no
+Successful disconnected
+[CHG] Device D1:63:2E:18:8F:C6 Connected: no
+
+■Pythonでbleスキャンしてみます
+$ python3 ble_scan_bleak.py
+Scanning for BLE devices...
+Found device: EnvSensor-BL01 - D1:63:2E:18:8F:C6
+Found device: EA-B3-CB-31-B1-73 - EA:B3:CB:31:B1:73
+Found device: EF-B0-8A-67-DD-59 - EF:B0:8A:67:DD:59
+
+■Pythonで値を取得してみます
+$ python3 ble_read_BL01.py
+{
+  "Temperature": 17.7,
+  "Humidity": 38.57,
+  "Illuminance": 26,
+  "UV": 0.01,
+  "Pressure": 1022.1,
+  "SoundNoise": 47.19,
+  "Discomfort": 61.88,
+  "HeatStrokeRisk": 13.97,
+  "BatteryVoltage": 2.738
+}

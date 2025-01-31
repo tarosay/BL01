@@ -1,0 +1,332 @@
+ラズパイにBLE BL01の接続
+■Bluetoothの有効化
+$ sudo systemctl enable bluetooth
+$ sudo systemctl start bluetooth
+
+・Status: "Running" であれば動作しています。
+$ sudo systemctl status bluetooth
+● bluetooth.service - Bluetooth service
+     Loaded: loaded (/lib/systemd/system/bluetooth.service; enabled; preset: en>
+     Active: active (running) since Thu 2025-01-30 01:09:29 JST; 35min ago
+       Docs: man:bluetoothd(8)
+   Main PID: 541 (bluetoothd)
+     Status: "Running"
+      Tasks: 1 (limit: 755)
+        CPU: 220ms
+     CGroup: /system.slice/bluetooth.service
+             mq541 /usr/libexec/bluetooth/bluetoothd
+
+■必要パッケージのインストール
+$ sudo apt-get update;
+$ sudo apt install -y bluez bluez-tools
+
+■Bluetoothデバイスのスキャン
+$ bluetoothctl
+以下のプロンプトに変わります
+[bluetooth]#
+
+bluetooth機器をスキャンします
+[bluetooth]# scan on
+Discovery started
+[CHG] Controller B8:27:EB:D4:D2:8F Discovering: yes
+[NEW] Device 5B:98:5C:EE:2B:BC 5B-98-5C-EE-2B-BC
+[NEW] Device 40:F8:DF:8D:4B:7F 40-F8-DF-8D-4B-7F
+[NEW] Device 75:4D:47:98:50:CF 75-4D-47-98-50-CF
+[NEW] Device 65:70:69:D8:E8:CA 65-70-69-D8-E8-CA
+[NEW] Device 54:FD:BD:64:E8:B8 15126169
+[NEW] Device D1:63:2E:18:8F:C6 Env
+[NEW] Device 4B:70:FB:7C:CC:B2 4B-70-FB-7C-CC-B2
+[CHG] Device 5B:98:5C:EE:2B:BC RSSI: -52
+
+EnvというのがBL01です。
+[NEW] Device D1:63:2E:18:8F:C6 Env
+これがBL01です。
+
+・BL01とペアリングします
+まず、他機種とのペアリングがあるかもしれないので削除します
+scan onしていたら、scan offします
+[bluetooth]# scan off
+リムーブします
+[bluetooth]# remove D1:63:2E:18:8F:C6
+[DEL] Device D1:63:2E:18:8F:C6 Env
+Device has been removed
+
+scan onして、BL01であるENVが表示されたら、ペアリングします。
+[bluetooth]# scan on
+Discovery started
+[CHG] Controller B8:27:EB:D4:D2:8F Discovering: yes
+[NEW] Device 61:E7:FE:7F:E4:59 61-E7-FE-7F-E4-59
+[NEW] Device D1:63:2E:18:8F:C6 Env
+[NEW] Device 44:72:2A:1A:48:A7 15126169
+[NEW] Device 40:F8:DF:8D:4B:7F 40-F8-DF-8D-4B-7F
+[NEW] Device 75:4D:47:98:50:CF 75-4D-47-98-50-CF
+[NEW] Device 6E:2A:6D:5F:5C:A8 6E-2A-6D-5F-5C-A8
+
+Envが出たので、ペアリングします。
+[bluetooth]# pair D1:63:2E:18:8F:C6
+Attempting to pair with D1:63:2E:18:8F:C6
+[CHG] Device D1:63:2E:18:8F:C6 Connected: yes
+[CHG] Device D1:63:2E:18:8F:C6 Bonded: yes
+[CHG] Device D1:63:2E:18:8F:C6 UUIDs: 00001800-0000-1000-8000-00805f9b34fb
+[CHG] Device D1:63:2E:18:8F:C6 UUIDs: 00001801-0000-1000-8000-00805f9b34fb
+[CHG] Device D1:63:2E:18:8F:C6 UUIDs: 0000180a-0000-1000-8000-00805f9b34fb
+[CHG] Device D1:63:2E:18:8F:C6 UUIDs: 0c4c3000-7700-46f4-aa96-d5e974e32a54
+[CHG] Device D1:63:2E:18:8F:C6 UUIDs: 0c4c3010-7700-46f4-aa96-d5e974e32a54
+[CHG] Device D1:63:2E:18:8F:C6 UUIDs: 0c4c3030-7700-46f4-aa96-d5e974e32a54
+[CHG] Device D1:63:2E:18:8F:C6 UUIDs: 0c4c3040-7700-46f4-aa96-d5e974e32a54
+[CHG] Device D1:63:2E:18:8F:C6 ServicesResolved: yes
+[CHG] Device D1:63:2E:18:8F:C6 Paired: yes
+[NEW] Primary Service (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0008
+        00001801-0000-1000-8000-00805f9b34fb
+        Generic Attribute Profile
+
+  .... 途中省略 ....
+
+Pairing successful
+
+・Paring succesfulが出たら、ペアリング成功です。
+[CHG] Device D1:63:2E:18:8F:C6 Name: EnvSensor-BL01
+[CHG] Device D1:63:2E:18:8F:C6 Alias: EnvSensor-BL01
+名前がEnvSensor-BL01 になりました。
+
+■接続します
+[bluetooth]# connect D1:63:2E:18:8F:C6
+Attempting to connect to D1:63:2E:18:8F:C6
+[CHG] Device D1:63:2E:18:8F:C6 Connected: yes
+Connection successful
+接続できました。
+プロンプトが以下に変わりました
+[EnvSensor-BL01]#
+
+■デバイスを信頼させます（毎回手動で接続しなくてもよくなる）
+[EnvSensor-BL01]# trust D1:63:2E:18:8F:C6
+[CHG] Device D1:63:2E:18:8F:C6 Trusted: yes
+Changing D1:63:2E:18:8F:C6 trust succeeded
+信頼成功しました。
+
+■完了後、スキャンを停止
+[EnvSensor-BL01]# scan off
+Discovery stopped
+[CHG] Device D1:63:2E:18:8F:C6 RSSI is nil
+[CHG] Controller B8:27:EB:D4:D2:8F Discovering: no
+[EnvSensor-BL01]# exit
+
+■ペアリングしているデバイスを確認
+$ bluetoothctl devices
+Device D1:63:2E:18:8F:C6 EnvSensor-BL01
+
+■BL01の情報を取得します
+$ bluetoothctl info D1:63:2E:18:8F:C6
+Device D1:63:2E:18:8F:C6 (random)
+        Name: EnvSensor-BL01
+        Alias: EnvSensor-BL01
+        Paired: yes
+        Bonded: yes
+        Trusted: yes
+        Blocked: no
+        Connected: yes
+        LegacyPairing: no
+        UUID: Generic Access Profile    (00001800-0000-1000-8000-00805f9b34fb)
+        UUID: Generic Attribute Profile (00001801-0000-1000-8000-00805f9b34fb)
+        UUID: Device Information        (0000180a-0000-1000-8000-00805f9b34fb)
+        UUID: Vendor specific           (0c4c3000-7700-46f4-aa96-d5e974e32a54)
+        UUID: Vendor specific           (0c4c3010-7700-46f4-aa96-d5e974e32a54)
+        UUID: Vendor specific           (0c4c3030-7700-46f4-aa96-d5e974e32a54)
+        UUID: Vendor specific           (0c4c3040-7700-46f4-aa96-d5e974e32a54)
+        ManufacturerData Key: 0x02d5
+        ManufacturerData Value:
+  00 00 4b 40 37 24 00 00 00 00 00 00 00 00 00     ..K@7$.........
+ペアリングも接続もyesになっています。
+
+■データを取得してみる
+$ bluetoothctl
+Agent registered
+[EnvSensor-BL01]#
+・GATTのサービスとキャラクタリスティックの一覧を表示する
+menu gattでgattに切り替える
+[EnvSensor-BL01]# menu gatt
+■一覧取得
+[EnvSensor-BL01]# list-attributes
+Primary Service (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0044
+        0c4c3040-7700-46f4-aa96-d5e974e32a54
+        Vendor specific
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0044/char0047
+        0c4c3042-7700-46f4-aa96-d5e974e32a54
+        Vendor specific
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0044/char0045
+        0c4c3041-7700-46f4-aa96-d5e974e32a54
+        Vendor specific
+Primary Service (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service003b
+        0c4c3030-7700-46f4-aa96-d5e974e32a54
+        Vendor specific
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service003b/char0042
+        0c4c3034-7700-46f4-aa96-d5e974e32a54
+        Vendor specific
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service003b/char0040
+        0c4c3033-7700-46f4-aa96-d5e974e32a54
+        Vendor specific
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service003b/char003e
+        0c4c3032-7700-46f4-aa96-d5e974e32a54
+        Vendor specific
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service003b/char003c
+        0c4c3031-7700-46f4-aa96-d5e974e32a54
+        Vendor specific
+Primary Service (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0026
+        0c4c3010-7700-46f4-aa96-d5e974e32a54
+        Vendor specific
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0026/char0039
+        0c4c301a-7700-46f4-aa96-d5e974e32a54
+        Vendor specific
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0026/char0037
+        0c4c3019-7700-46f4-aa96-d5e974e32a54
+        Vendor specific
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0026/char0035
+        0c4c3018-7700-46f4-aa96-d5e974e32a54
+        Vendor specific
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0026/char0033
+        0c4c3017-7700-46f4-aa96-d5e974e32a54
+        Vendor specific
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0026/char0031
+        0c4c3016-7700-46f4-aa96-d5e974e32a54
+        Vendor specific
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0026/char002f
+        0c4c3015-7700-46f4-aa96-d5e974e32a54
+        Vendor specific
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0026/char002d
+        0c4c3014-7700-46f4-aa96-d5e974e32a54
+        Vendor specific
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0026/char002b
+        0c4c3013-7700-46f4-aa96-d5e974e32a54
+        Vendor specific
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0026/char0029
+        0c4c3012-7700-46f4-aa96-d5e974e32a54
+        Vendor specific
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0026/char0027
+        0c4c3011-7700-46f4-aa96-d5e974e32a54
+        Vendor specific
+Primary Service (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0017
+        0c4c3000-7700-46f4-aa96-d5e974e32a54
+        Vendor specific
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0017/char0023
+        0c4c3006-7700-46f4-aa96-d5e974e32a54
+        Vendor specific
+Descriptor (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0017/char0023/desc0025
+        00002902-0000-1000-8000-00805f9b34fb
+        Client Characteristic Configuration
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0017/char0021
+        0c4c3005-7700-46f4-aa96-d5e974e32a54
+        Vendor specific
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0017/char001f
+        0c4c3004-7700-46f4-aa96-d5e974e32a54
+        Vendor specific
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0017/char001d
+        0c4c3003-7700-46f4-aa96-d5e974e32a54
+        Vendor specific
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0017/char001b
+        0c4c3002-7700-46f4-aa96-d5e974e32a54
+        Vendor specific
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0017/char0018
+        0c4c3001-7700-46f4-aa96-d5e974e32a54
+        Vendor specific
+Descriptor (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0017/char0018/desc001a
+        00002902-0000-1000-8000-00805f9b34fb
+        Client Characteristic Configuration
+Primary Service (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service000c
+        0000180a-0000-1000-8000-00805f9b34fb
+        Device Information
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service000c/char0015
+        00002a26-0000-1000-8000-00805f9b34fb
+        Firmware Revision String
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service000c/char0013
+        00002a27-0000-1000-8000-00805f9b34fb
+        Hardware Revision String
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service000c/char0011
+        00002a25-0000-1000-8000-00805f9b34fb
+        Serial Number String
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service000c/char000f
+        00002a24-0000-1000-8000-00805f9b34fb
+        Model Number String
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service000c/char000d
+        00002a29-0000-1000-8000-00805f9b34fb
+        Manufacturer Name String
+Primary Service (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0008
+        00001801-0000-1000-8000-00805f9b34fb
+        Generic Attribute Profile
+Characteristic (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0008/char0009
+        00002a05-0000-1000-8000-00805f9b34fb
+        Service Changed
+Descriptor (Handle 0x0000)
+        /org/bluez/hci0/dev_D1_63_2E_18_8F
+
+■センサデータのキャラクタリスティックは以下です
+0c4c3001-7700-46f4-aa96-d5e974e32a54 （char0018）
+/org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0017/char0018
+
+■キャラクタリスティックを選択する
+[EnvSensor-BL01]# select-attribute /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0017/char0018
+[EnvSensor-BL01:/service0017/char0018]#
+プロンプトが変わる
+
+■データを取得する
+[EnvSensor-BL01:/service0017/char0018]# read
+Attempting to read /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0017/char0018
+[CHG] Attribute /org/bluez/hci0/dev_D1_63_2E_18_8F_C6/service0017/char0018 Value:
+  00 43 07 78 0f 1b 00 01 00 e1 27 44 11 9a 18 c2  .C.x......'D....
+  05 b6 0a                                         ...
+  00 43 07 78 0f 1b 00 01 00 e1 27 44 11 9a 18 c2  .C.x......'D....
+  05 b6 0a                                         ...
+[EnvSensor-BL01:/service0017/char0018]#
+
+■再起動後もペアリングを覚えているかを確認
+$ bluetoothctl info D1:63:2E:18:8F:C6
+Device D1:63:2E:18:8F:C6 (random)
+        Name: EnvSensor-BL01
+        Alias: EnvSensor-BL01
+        Paired: yes
+        Bonded: yes
+        Trusted: yes
+        Blocked: no
+        Connected: no
+        LegacyPairing: no
+
+・Paired: yes
+・Bonded: yes
+・Trusted: yes
+なので、覚えています。
